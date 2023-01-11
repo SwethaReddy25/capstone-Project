@@ -1,16 +1,29 @@
 <div>
-    <mat-toolbar class ="pd"  color = "secondary">
-    <span class = "gap fs-3">InstaSmart</span>
+
+    <mat-toolbar   class ="p-5 bg-black">
+
+    <span class = "gap ls-3 fs-3 cursor-pointer">InstaSmart</span>
+
     <span class = "filler"></span>
-    <span color="accent gap " class="p-3 fs-6" routerLink="/home" routerLinkActive="active fs-4 ">HOME</span>
-    <span color="accent gap" class="p-3 fs-6" routerLink="/veges" routerLinkActive="active fs-4">VEGES</span>
-    <span  color="accent gap" class="p-3 fs-6" routerLink="/contact-us" routerLinkActive="active fs-4">CONTACT-US</span>
-    <span  color="accent" class="p-3 fs-6" routerLink="/about-us" routerLinkActive="active fs-4">ABOUT-US</span>
+
+    <span color="accent gap " class="mx-3 px-4 py-2 fs-6 cursor-pointer" routerLink="/home" routerLinkActive="active fs-4 text-black rounded ">HOME</span>
+
+    <span color="accent gap" class="mx-3 px-4 py-2 fs-6 cursor-pointer" routerLink="/products" routerLinkActive="active fs-4 text-black rounded">ITEMS</span>
+
+    <span  color="accent gap" class="mx-3 px-4 py-2 fs-6 cursor-pointer" routerLink="/contact-us" routerLinkActive="active fs-4 text-black rounded">CONTACT-US</span>
+
+    <span  color="accent" class="mx-3 px-4 py-2 fs-6 cursor-pointer" routerLink="/about-us" routerLinkActive="active fs-4 text-black rounded">ABOUT-US</span>
+
     <span class = "filler"></span>
-    <a class='nav-link' *ngIf="isLoggedIn" >Welcome {{userName}}</a>
-    <button class="float-right" *ngIf="!isLoggedIn" mat-raised-button routerLink="/login">Login</button>
-    <button (click)="logOut()" *ngIf="isLoggedIn" mat-raised-button>Logout</button> 
-    
+
+    <!-- <a class='nav-link' *ngIf="isLoggedIn" >Welcome {{userName}}</a> -->
+
+    <button class="float-right cursor-pointer fs-3 py-2 bg-light text-dark"  mat-raised-button routerLink="/login">Login</button>
+
+    <!-- <button (click)="logOut()" *ngIf="isLoggedIn" mat-raised-button>Logout</button>  -->
+
  </mat-toolbar>
+
 </div>
+
 <router-outlet></router-outlet>

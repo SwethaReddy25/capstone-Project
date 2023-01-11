@@ -1,0 +1,53 @@
+.title{
+    /* margin-top: -200px; */
+    margin-bottom:190px;
+    color: white;
+
+    font-size:80px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+}
+
+.title span{
+
+    color:rgba(34, 127, 233, 0.906);
+
+
+
+}
+
+img{
+
+    opacity:0.9;filter: brightness(60%);
+
+}
+
+.caption{
+
+    margin-bottom: 120px;
+
+    color:white;
+
+    letter-spacing: 5px;
+
+    /* background-color: black; */
+
+   
+
+    padding-top: 10px;
+
+    padding-bottom: 10px;
+
+    width: 50%;
+
+    margin: auto;
+
+    border-top-left-radius: 50%;
+
+    border-bottom-right-radius: 50%;
+
+}
+
