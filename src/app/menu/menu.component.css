@@ -1,0 +1,15 @@
+.filler {
+    flex: 1 1 auto;
+ }
+
+ .active {
+ font-weight: bold;
+ color: rgba(14, 208, 234, 0.863);
+ }
+
+ .pd{
+ padding-top: 30px;
+ padding-bottom: 30px;
+ background-color: black;
+
+ }
