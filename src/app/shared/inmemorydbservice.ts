@@ -33,7 +33,7 @@ let Product=[
     },
     {
       "id":3,
-      "name":"Tamoto",
+      "name":"Tamato",
       "code":"CD12",
       "price":350,
       "image":"../../assets/images/tamoto.jpg", 
@@ -43,7 +43,7 @@ let Product=[
     },
     {
       "id":4,
-      "name":"Bringal",
+      "name":"Brinjal",
       "code":"BD13",
       "price":550,
       "image":"../../assets/images/bringal", 
@@ -61,7 +61,7 @@ let Product=[
     },
     {
       "id":6,
-      "name":"Bittergaurd",
+      "name":"Bittergourd",
       "code":"GC009",
       "price":250,
       "image":"../../assets/images/bittergaurd.jpg", 
