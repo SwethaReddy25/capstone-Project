@@ -1,0 +1,226 @@
+<div class="container-fluid bg-dark h-100">
+
+<!-- User Products Page -->
+
+  <div *ngIf="!isAdmin">
+    <div class="w-50 p-3 m-auto ">
+      <div class="input-group">
+        <input type="search" placeholder="Search for Products . . ."
+          class="rounded ps-3 w-50 py-2 fs-5 float-center m-auto form-control" [(ngModel)]="filterValue"
+          (keyup)="filterData()" />
+
+        <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"> -->
+        <div class="input-group-append ">
+
+          <span class="bg-warning input-group-text"><i class=" fa fa-search fa-2x"></i></span>
+        </div>
+      </div>
+      <!-- <input type="search" placeholder="Search for Products . . ." class="rounded ps-3 p-1 fs-3 float-center w-50 m-auto" [(ngModel)]="filterValue" (keyup)="filterData()" /> -->
+    </div>
+
+    <div class="container py-4 d-flex justify-content-start flex-wrap  rounded text-dark">
+
+      <div *ngFor="let prod of filteredProducts;let i = index"
+        class="card  border border-4 ml-2 mr-2  border-light bg-light mb-5 " style="max-width: 16rem;">
+        <div class="card-header fw-bold bg-info float-right text-danger ls text-center ">GET {{prod.discount}}% Off
+          <i class="fa-sharp fa-solid fa-burst"></i>
+        </div>
+        <div class="card-body p-4 mb-0">
+          <img [src]="prod.image" class="w-100 h-50 rounded">
+          <div class="d-flex pt-4 justify-content-between pb-3">
+            <div class="fs-6 fw-bold ls ">{{prod.name | uppercase}} </div>
+            <p class="card-text float-right fs-6 text-info fw-bold ls"> {{prod.price | currency:'INR'}}</p>
+          </div>
+          <p class="card-text fs-6  fw-light">{{prod.desc}}</p>
+
+        </div>
+
+        <div class="card-footer p-2 bg-dark " style="margin-top: -20px;">
+          <div class="d-flex justify-content-between">
+            <div class="w-50">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button type="button" (click)="delete(prod)"
+                    class="quantity-left-minus btn btn-danger btn-number text-center" data-type="minus" data-field="">
+                    <span class="fa fa-minus"></span>
+                  </button>
+                </span>
+
+                <input type="text" id="quantity" disabled [(ngModel)]="prod.qty" [value]="prod.qty" name="quantity"
+                  width="2px" class="form-control input-number" min="1" max="10">
+                <span class="input-group-btn">
+                  <button type="button" (click)="add(prod)" class="quantity-right-plus btn btn-success btn-number"
+                    data-type="plus" data-field="">
+                    <span class="fa fa-plus"></span>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="float-right">
+              <button value="Add" (click)="add(prod)" class="btn btn-warning text-dark">Add
+                <span class="fa fa-shopping-cart "></span></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+<!-- Admin Products Page -->
+
+
+
+  <div *ngIf="isAdmin">
+
+    <div class="container-fluid vh-100 bg-blue">
+
+      <div class="row bg-dark">
+        <div class="col-3 text-center bg-warning p-1 ">
+          <div class="text-left text-dark ls-3 fw-bold pt-3 fs-6 ">
+            <p>DASHBOARD</p>
+          </div>
+        </div>
+        <div class="col-9 bg-secondary bg-dark ls-5 p-1">
+          <div class="text-end text-light float-right pt-1 fw-bold   fs-6 rounded  ">
+            <p>ADMIN<i class="fa text-blue fa-solid fa-user px-2 fs-2"></i>{{username | uppercase}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="fw-bold text-center pt-2 m-auto fs-5">
+          <p>MANAGE PRODUCTS</p>
+          <hr>
+        </div>
+
+        <div class="">
+          <div class="row justify-content-around">
+            <div class="col-4 text-center p-5  ">
+              <div class="text-left card text-light ls-3  p-5 fw-bold fs-6 bg-dark">
+
+                <div class="fs-5 pb-4">ADD PRODUCT</div>
+                <i class="fa fa-plus fs-1 text-primary pointer" fragment="main" (click)="newProduct()"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <!-- <div class="col-4 text-center bg-primary p-1 ">
+              <div>
+                <div class="fw-bold"> </div>
+                <div class="chart-wrapper">
+                    <canvas baseChart 
+                    [data]="pieChartData" 
+                    [labels]="pieChartLabels" 
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend">
+                  </canvas>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="col-4 text-center p-5">
+              <div class="text-left card text-light ls-3 p-5 fw-bold bg-dark">
+                <div class="fs-5 pb-4">VIEW PRODUCTS</div>
+                <i class="fa fa-eye fs-1 text-primary pointer" (click)="navigate('viewProducts')"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="card p-5 pt-2 bg-dark text-light" id='viewProducts'>
+      <div class="card-header">
+        <div class="text-center fs-2 fw-bold text-warning pb-4 ">{{pageTitle | uppercase}}</div>
+
+        <div class="input-group">
+          <input type="search" placeholder="Search for Products . . ."
+            class="rounded ps-3 w-50 py-2 fs-5 float-center m-auto form-control" [(ngModel)]="filterValue"
+            (keyup)="filterData()" />
+
+          <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"> -->
+          <div class="input-group-append ">
+
+            <span class="bg-warning input-group-text"><i class=" fa fa-search fa-2x"></i></span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card-body text-light">
+
+
+        <!-- <h1>Filtered as per {{filterValue}}</h1> -->
+
+        <div class="table-responsive ">
+          <table *ngIf="filteredProducts.length;else elseBlock" class="table text-dark table-light  ">
+
+            <thead class=" text-dark">
+              <tr class="p-5">
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+                <th scope="col">Image</th>
+
+
+              </tr>
+            </thead>
+            <tbody class="tbody-light">
+              <tr *ngFor="let prod of filteredProducts;let i = index">
+                <td>{{i+1}}</td>
+                <td>
+                  {{prod.name|uppercase}}
+                </td>
+                <td>{{prod.category}}</td>
+
+                <td>{{prod.price|currency:'INR'}}</td>
+                <td>{{prod.desc}}</td>
+                <td>
+                  <button class="btn btn-dark" (click)="productSelected(prod)">EDIT</button>
+                </td>
+                <td><img [src]='prod.image' [title]="prod.name" height="50px" width="50px" alt="some product image" />
+                </td>
+                <!-- <td><button class="btn btn-primary"
+                      (click)="getProductById(prod.id)">Get Product</button>
+                       </td> -->
+                <!-- <td><input type="number" style="width: 50px;" [(ngModel)]="prod.qty"></td> -->
+              </tr>
+            </tbody>
+          </table>
+
+          <ng-template #elseBlock>
+            <h1>No products</h1>
+          </ng-template>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <!-- {{errorMessage$  | async}} -->
+</div>
+<router-outlet></router-outlet>

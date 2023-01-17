@@ -1,0 +1,118 @@
+<p>cart works!</p>
+
+<div class="container-fluid">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quatity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prod of products">
+                <td>{{prod.code}}</td>
+                <td><img src="{{prod.image}}" class="img-thumbnail" style="height:100px;" /></td>
+                <td>{{prod.name}}</td>
+                <td>{{prod.price}}</td>
+                <td>
+                    <button class="btn btn-danger ms-3 btn-xs minus" (click)="minus(prod.id)"><i
+                            class="fa fa-minus "></i></button>
+                    {{prod.qty}}
+
+                    <button class="btn btn-success me-3 btn-xs plus" (click)="plus(prod.id)"><i
+                            class="fa fa-plus "></i></button>
+
+                </td>
+                <td>
+                    <!-- <button class="btn btn-primary btn-sm" (click)="getpopup(list)">View</button> &nbsp; -->
+                    <button class="btn btn-danger btn-sm" (click)="remove(prod.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total Price</td>
+                <td colspan="6" class="text-right">{{total | currency: 'INR' }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <!-- <div class="card p-5 pt-2 bg-dark text-light" id='viewProducts'>
+        <div class="card-header">
+            <div class="text-center fs-2 fw-bold text-warning pb-4 ">{{pageTitle | uppercase}}</div>
+
+            <div class="input-group">
+                <input type="search" placeholder="Search for Products . . ."
+                    class="rounded ps-3 w-50 py-2 fs-5 float-center m-auto form-control" [(ngModel)]="filterValue"
+                    (keyup)="filterData()" />
+
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                <div class="input-group-append ">
+
+                    <span class="bg-warning input-group-text"><i class=" fa fa-search fa-2x"></i></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body text-light">
+
+
+      <h1>Filtered as per {{filterValue}}</h1>
+
+            <div class="table-responsive ">
+                <table *ngIf="filteredProducts.length;else elseBlock" class="table text-dark table-light  ">
+
+                    <thead class=" text-dark">
+                        <tr class="p-5">
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                            <th scope="col">Image</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-light">
+                        <tr *ngFor="let prod of filteredProducts;let i = index">
+                            <td>{{i+1}}</td>
+                            <td>
+                                {{prod.name|uppercase}}
+                            </td>
+                            <td>{{prod.category}}</td>
+
+                            <td>{{prod.price|currency:'INR'}}</td>
+                            <td>{{prod.desc}}</td>
+                            <td>
+                                <button class="btn btn-dark" (click)="productSelected(prod)">EDIT</button>
+                            </td>
+                            <td><img [src]='prod.image' [title]="prod.name" height="50px" width="50px"
+                                    alt="some product image" />
+                            </td>
+                       <td><button class="btn btn-primary"
+                      (click)="getProductById(prod.id)">Get Product</button>
+                       </td> 
+                 <td><input type="number" style="width: 50px;" [(ngModel)]="prod.qty"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ng-template #elseBlock>
+                    <h1>No products</h1>
+                </ng-template>
+
+            </div>
+
+
+        </div>
+    </div> -->
+</div>

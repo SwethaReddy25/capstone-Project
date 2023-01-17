@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../user/auth.service';
 
@@ -7,29 +7,39 @@ import { AuthService } from '../user/auth.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
-  constructor( private router:Router,private authservice:AuthService){
+export class MenuComponent implements OnInit {
 
-    console.log('menu constructor')
+  noOfItems!:number;
+  constructor(private authService: AuthService,private router:Router) { }
+  ngOnInit(): void {
+
+    console.log(this.username);
+    console.log(this.isLoggedIn);
+    this.noOfItems=1;
+
   }
 
-  get isLoggedIn():boolean{
-     return this.authservice.isLoggedIn();
+
+  goToCart(){
+    console.log("in gotocart");
+    if(this.noOfItems!=0)this.router.navigate(['cart']);
   }
 
-  get userName():string{
-  if(this.authservice.currentUser)
-  return this.authservice.currentUser?.userName;
-  return '';
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
-  
-    logOut():void{
-      console.log("logout")
-      //this should also use the authserviceto logout the current user
-      //you can route to some url 
-      this.authservice.logOut();
-      this.router.navigate(['/home']);
-      
+
+  get username():any{
+    return this.authService.currentUser?.userName;
     }
 
+
+    get isAdmin():any{
+      return this.authService.currentUser?.isAdmin;
+      }
+
+  logOut() {
+    this.authService.logOut();
+  }
 }

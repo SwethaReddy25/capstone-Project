@@ -1,7 +1,16 @@
 .bg{
-    background-image:   linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),url("../../assets/images/vegtablefull1.jpg") ;
-    opacity: 0.5;
+    background-image:  url("../../assets/images/vegtablefull1.jpg") ;
+    opacity: 1;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 580px;
+    filter: brightness(50%);
+   
 
+
+}
+.bi{
+    position:absolute;
+    margin-top:-580px;
+    
 }

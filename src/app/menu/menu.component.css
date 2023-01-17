@@ -1,41 +1,30 @@
 .filler {
-
     flex: 1 1 auto;
-
  }
-
-
 
  .active {
-
  font-weight: bold;
-
- background-color:rgba(34, 127, 233, 0.906);
+ /* background-color:rgba(34, 127, 233, 0.906); */
+ background-color: white;
 
 }
-
 .cursor-pointer{
-
     cursor: pointer;
-
 }
 
-
+.bg-blue{
+     background-color:rgba(34, 127, 233, 0.906);
+}
 
  .pd{
-
  padding-top: 30px;
-
  padding-bottom: 30px;
-
  background-color: black;
 
-
-
  }
-
  .ls-3{
-
     letter-spacing: 5px;
-
+ }
+ .text-black{
+    color: black;
  }

@@ -1,0 +1,65 @@
+<mat-card class="container text-center  ">
+    <h1 class="text-light">InstaSmart</h1>
+   <mat-card class="last-content mt-5">
+     <button type="button" class="pay-now-btn">
+        Apply Coupons
+     </button>
+     <button type="button" class="pay-now-btn">
+        Pay with Netbanking
+     </button>
+     <!-- <button type="button" class="pay-now-btn">
+     Netbanking options
+     </button> -->
+    </mat-card>
+
+   <mat-card class="card-details ">
+     <p>Pay using Credit or Debit card</p>
+     <br>
+
+     <mat-card class="card-number text-left">
+       <mat-label > Enter Card Number </mat-label>
+       <input matInput #card
+         type="text"
+         class="card-number-field float-right" formControlName="cardNumber" required maxlength="9" pattern="([0-9]{3})*([0-9]{3})*([0-9]{3})"
+         placeholder="###-###-###"/>
+         <div><mat-hint> Max {{card.value.length || 0}} numbers </mat-hint>
+         <mat-hint class="float-right" >{{card.value.length || 0}}/9 </mat-hint>
+        </div>
+        
+     </mat-card>
+     <mat-card class="date-number text-left">
+       <mat-label > Card Expiry Date </mat-label>
+       <!-- <input  type="text" class="date-number-field float-right" 
+              placeholder="DD-MM-YY" /> -->
+          <input matInput placeholder="MM-DD-YY" [matDatepicker]="picker" required formControlName="expiryDate">
+         <div> <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+
+     </mat-card>
+
+     <mat-card class="cvv-number text-left">
+       <mat-label> Enter CVV number </mat-label>
+       <input matInput #cvv type="text" class="cvv-number-field float-right" formControlName="cvvNumber" required maxlength="3"
+              placeholder="xxx" />
+              <div><mat-hint> Max {{cvv.value.length || 0}} numbers  </mat-hint>
+              <mat-hint class="float-right">{{cvv.value.length || 0}}/3 </mat-hint>
+            </div>
+     </mat-card>
+     <mat-card class="nameholder-number text-left">
+       <mat-label> Enter Card Holder Name </mat-label>
+       <input matInput #input
+         type="text"
+         class="card-name-field float-right" formControlName="cardHolderName" required maxlength="20"
+         placeholder="Enter your Name"/>
+         <div><mat-hint > Max {{input.value.length || 0}} characters </mat-hint>
+         <mat-hint class="float-right">{{input.value.length || 0}}/20</mat-hint>
+        </div>
+     </mat-card>
+     <br>
+     <button type="submit" 
+             class="submit-now-btn">
+       submit
+     </button>
+    </mat-card>
+</mat-card>

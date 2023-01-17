@@ -1,0 +1,24 @@
+.ls{
+    letter-spacing: 2px;
+}
+.text-black{
+    color: black;
+}
+.bg-blue{
+    background-color:rgba(184, 207, 231, 0.906);
+}
+.text-blue{
+    color:rgba(34, 127, 233, 0.906);
+}
+.bg-black{
+    background-color: black;
+}
+.ls-3{
+    letter-spacing: 3px;
+}
+.ls-5{
+    letter-spacing: 5px;
+}
+.pointer{
+    cursor:pointer;
+}

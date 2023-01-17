@@ -1,38 +1,77 @@
 import { Injectable } from "@angular/core";
-import { User } from "./user";
+import { Router } from "@angular/router";
+import { User } from "./user.model";
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
-export class AuthService{
+export class AuthService {
 
     //get the current user --welcome username
     //we need to whether the user has logged in or not
     //we have to log out the user
 
-    currentUser!:User |null;
-    redirectToUrl!:string;
 
-    constructor(){}
+    currentUser!: User | null | undefined;
+    redirectToUrl!: string;
+    users : User[] = [
+        {
+            id:1,
+            userName:'admin',
+            password:'admin123',
+            isAdmin:true
+            
+        },
+        {
+            id:2,
+            userName:'swetha',
+            password:'swetha123',
+            isAdmin:false
+            
+        }
+    ]    
 
-    isLoggedIn():boolean{
+    constructor(private router:Router) { }
+
+    isLoggedIn(): boolean {
+        console.log('in isloggedin')
+        const cu=sessionStorage.getItem("currentUser");
+        // console.log(cu);
+        if(cu!=null){
+            this.currentUser=JSON.parse(cu);
+        }
+        console.log(this.currentUser);
         return !!this.currentUser;
     }
+    
+    login(userName: string, password: string): void {
 
-    login(userName:string,password:string):void{
+        //service which connect to back end api to validate the user
 
-     //service which connect to back end api to validate the user
-     
+        this.users.forEach((u)=>{
+            if(userName==u.userName && password==u.password){
+                this.currentUser = u;
 
-     this.currentUser={
-        id:2,
-        userName,
-        isAdmin:true
-     };
+                sessionStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+                // console.log(sessionStorage.getItem("currentUser"));
+            }
+        });
 
+        // if(this.isAdmin())this.redirectToUrl='/products';
+        // else this.redirectToUrl='/products';
+        // console.log(this.currentUser);
+       
     }
 
-    logOut():void{
-        this.currentUser=null;
+    logOut(): void {
+        sessionStorage.removeItem('currentUser');
+        this.currentUser = null;
+        this.router.navigate(['/home']);
+
+    }
+    isAdmin(): boolean {
+        if (this.currentUser)
+            return this.currentUser?.isAdmin;
+        return false;
     }
 }
