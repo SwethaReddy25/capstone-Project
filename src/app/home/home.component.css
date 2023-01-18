@@ -1,28 +1,26 @@
-.title {
+.title{
     /* margin-top: -200px; */
-    margin-bottom: 190px;
+    margin-bottom:90px;
     color: white;
-    font-size: 60px;
+    font-size:65px;
     font-weight: bold;
     letter-spacing: 3px;
 }
 
-.title span {
-    color: rgba(34, 127, 233, 0.906);
-}
 
-img {
-    opacity: 0.9;
-    filter: brightness(60%);
-}
-
-.bg-black {
+.bg-black{
     background-color: black;
 }
+img{
+    opacity:0.9;
+    filter: brightness(50%) blur(2px);
+    
+}
 
-caption {
+.caption{
+
     margin-bottom: 120px;
-    color: white;
+    color:white;
     letter-spacing: 5px;
     /* background-color: black; */
     padding-top: 10px;
@@ -32,3 +30,18 @@ caption {
     border-top-left-radius: 50%;
     border-bottom-right-radius: 50%;
 }
+.ls-2{
+    letter-spacing: 2px;
+}
+.text-green{
+    color:rgb(19, 186, 44);
+}
+.btn-green{
+    background-color:rgb(19, 186, 44);
+}
+.snbtn{
+    box-shadow:2cm;
+}
+.mt-7{
+    margin-top: 64px;
+  }

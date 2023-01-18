@@ -2,8 +2,10 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 
+
+// This is the routing file for cart module which can loaded in app routing file
+
 const cartRoutes: Routes = [
-    // {  path: 'addProduct', component: ProductAddComponent }
   ];
 
 @NgModule({

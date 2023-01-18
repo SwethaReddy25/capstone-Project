@@ -10,6 +10,9 @@ import { productReducer } from '../../app/state/products/product.reducer';
 import { ProductEffects } from '../state/products/product.effects';
 
 
+
+//Here we have created a separate module for cart which is having CartComponent
+
 @NgModule({
   declarations: [
     CartComponent
@@ -18,7 +21,6 @@ import { ProductEffects } from '../state/products/product.effects';
     CommonModule,
     CartRoutingModule,
     StoreModule.forFeature('cart', cartReducer),
-    StoreModule.forFeature('products', productReducer),
     EffectsModule.forFeature([CartEffects,ProductEffects])
     
   ]

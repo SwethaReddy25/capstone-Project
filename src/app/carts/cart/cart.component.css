@@ -1,0 +1,23 @@
+.ls-3{
+    letter-spacing: 3px;
+}
+
+.overflow-x-hidden{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.bg-green{
+    background-color:rgb(19, 186, 44);
+}
+.text-green{
+    color:rgb(19, 186, 44);
+}
+.mt-7{
+    margin-top: 64px;
+}
+.bg-black{
+    background-color: black;
+}
+.btn-green{
+    background-color:rgb(19, 186, 44);
+}

@@ -53,31 +53,4 @@ export class CartEffects {
       );
   });
 
-
-  // addCart$ = createEffect(() => {
-  //   return this.actions$
-  //     .pipe(
-  //       ofType(CartActions.addCart),
-  //       concatMap(payload =>
-  //         this.cartService.addCart(payload.cart)
-  //           .pipe(
-  //             map(cart => CartActions.addCartSuccess({ cart }))
-  //           )
-  //       )
-  //     );
-  // });
-
-
-  //   deleteProduct$ = createEffect(() => {
-  //     return this.actions$
-  //       .pipe(
-  //         ofType(ProductActions.deleteProduct),
-  //         mergeMap(action =>
-  //           this.productService.deleteProduct(action.productId).pipe(
-  //             map(() => ProductActions.deleteProductSuccess({ productId: action.productId })),
-  //             catchError(error => of(ProductActions.deleteProductFailure({ error })))
-  //           )
-  //         )
-  //       );
-  //   });
 }

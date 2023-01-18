@@ -1,28 +1,33 @@
-<div class="container-fluid bg-dark h-100">
+<div class="container-fluid mt-7 bg-dark h-100">
 
-<!-- User Products Page -->
+  <!-- User Products Page -->
 
   <div *ngIf="!isAdmin">
-    <div class="w-50 p-3 m-auto ">
-      <div class="input-group">
+    <div class="w-75 p-4 m-auto ">
+
+
+      <!-- search box  -->
+      <div class="input-group pt-2">
+        <div class="text-primary ls-3 fs-4 fw-bold pe-5">WELCOME , <span class="">{{ username | uppercase }}</span>
+        </div>
         <input type="search" placeholder="Search for Products . . ."
           class="rounded ps-3 w-50 py-2 fs-5 float-center m-auto form-control" [(ngModel)]="filterValue"
           (keyup)="filterData()" />
 
-        <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"> -->
         <div class="input-group-append ">
 
           <span class="bg-warning input-group-text"><i class=" fa fa-search fa-2x"></i></span>
         </div>
       </div>
+
       <!-- <input type="search" placeholder="Search for Products . . ." class="rounded ps-3 p-1 fs-3 float-center w-50 m-auto" [(ngModel)]="filterValue" (keyup)="filterData()" /> -->
     </div>
 
     <div class="container py-4 d-flex justify-content-start flex-wrap  rounded text-dark">
 
       <div *ngFor="let prod of filteredProducts;let i = index"
-        class="card  border border-4 ml-2 mr-2  border-light bg-light mb-5 " style="max-width: 16rem;">
-        <div class="card-header fw-bold bg-info float-right text-danger ls text-center ">GET {{prod.discount}}% Off
+        class="card  border border-4 me-2 ms-2 border-light bg-light mb-5 " style="max-width: 16rem;">
+        <div class="card-header fw-bold bg-warning float-right text-danger ls text-center ">GET {{prod.discount}}% Off
           <i class="fa-sharp fa-solid fa-burst"></i>
         </div>
         <div class="card-body p-4 mb-0">
@@ -37,28 +42,34 @@
 
         <div class="card-footer p-2 bg-dark " style="margin-top: -20px;">
           <div class="d-flex justify-content-between">
-            <div class="w-50">
+            <div *ngIf="isItemInCart(prod.id)" class="w-50">
               <div class="input-group">
                 <span class="input-group-btn">
-                  <button type="button" (click)="delete(prod)"
+                  <button type="button" (click)="minus(prod.id)"
                     class="quantity-left-minus btn btn-danger btn-number text-center" data-type="minus" data-field="">
                     <span class="fa fa-minus"></span>
                   </button>
                 </span>
 
-                <input type="text" id="quantity" disabled [(ngModel)]="prod.qty" [value]="prod.qty" name="quantity"
-                  width="2px" class="form-control input-number" min="1" max="10">
+                <input type="text" id="quantity" disabled [value]="getItemQty(prod.id)" name="quantity" width="2px"
+                  class="form-control input-number" min="1" max="10">
+
                 <span class="input-group-btn">
-                  <button type="button" (click)="add(prod)" class="quantity-right-plus btn btn-success btn-number"
+                  <button type="button" (click)="plus(prod.id)" class="quantity-right-plus btn btn-success btn-number"
                     data-type="plus" data-field="">
                     <span class="fa fa-plus"></span>
                   </button>
                 </span>
+
               </div>
             </div>
-            <div class="float-right">
-              <button value="Add" (click)="add(prod)" class="btn btn-warning text-dark">Add
+            <div *ngIf="!isItemInCart(prod.id)" class="float-right m-auto">
+              <button value="Add" (click)="add(prod)" class="px-3  fw-bold btn btn-primary text-light">ADD TO
                 <span class="fa fa-shopping-cart "></span></button>
+            </div>
+            <div *ngIf="isItemInCart(prod.id)" class="float-right ">
+              <button value="Remove" (click)="remove(prod.id)" class="px-3 fs-6  fw-bold btn btn-danger text-light"><i
+                  class="fa fa-trash "></i></button>
             </div>
           </div>
 
@@ -72,7 +83,7 @@
 
 
 
-<!-- Admin Products Page -->
+  <!-- Admin Products Page -->
 
 
 
@@ -110,22 +121,6 @@
               </div>
             </div>
 
-            <!-- <div class="col-4 text-center bg-primary p-1 ">
-              <div>
-                <div class="fw-bold"> </div>
-                <div class="chart-wrapper">
-                    <canvas baseChart 
-                    [data]="pieChartData" 
-                    [labels]="pieChartLabels" 
-                    [chartType]="pieChartType"
-                    [options]="pieChartOptions"
-                    [plugins]="pieChartPlugins"
-                    [legend]="pieChartLegend">
-                  </canvas>
-                </div>
-              </div>
-            </div> -->
-
             <div class="col-4 text-center p-5">
               <div class="text-left card text-light ls-3 p-5 fw-bold bg-dark">
                 <div class="fs-5 pb-4">VIEW PRODUCTS</div>
@@ -136,18 +131,11 @@
           </div>
         </div>
 
-
-
-
-
-
-
       </div>
-
 
     </div>
 
-
+    <!-- Product List -->
 
     <div class="card p-5 pt-2 bg-dark text-light" id='viewProducts'>
       <div class="card-header">
@@ -203,10 +191,7 @@
                 </td>
                 <td><img [src]='prod.image' [title]="prod.name" height="50px" width="50px" alt="some product image" />
                 </td>
-                <!-- <td><button class="btn btn-primary"
-                      (click)="getProductById(prod.id)">Get Product</button>
-                       </td> -->
-                <!-- <td><input type="number" style="width: 50px;" [(ngModel)]="prod.qty"></td> -->
+              
               </tr>
             </tbody>
           </table>
@@ -216,11 +201,8 @@
           </ng-template>
 
         </div>
-
-
       </div>
     </div>
   </div>
-  <!-- {{errorMessage$  | async}} -->
 </div>
 <router-outlet></router-outlet>

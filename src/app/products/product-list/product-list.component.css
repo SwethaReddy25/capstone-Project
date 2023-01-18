@@ -7,6 +7,9 @@
 .bg-blue{
     background-color:rgba(184, 207, 231, 0.906);
 }
+.text-green{
+    color:rgb(19, 186, 44);
+}
 .text-blue{
     color:rgba(34, 127, 233, 0.906);
 }
@@ -21,4 +24,7 @@
 }
 .pointer{
     cursor:pointer;
+}
+.mt-7{
+    margin-top: 64px;
 }

@@ -53,7 +53,6 @@ import { MatNavList } from '@angular/material/list';
   exports: [
     A11yModule,
     CdkAccordionModule,
-
     CdkStepperModule,
     CdkTableModule,
     CdkTreeModule,

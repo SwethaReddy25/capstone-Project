@@ -1,65 +1,93 @@
-<mat-card class="container text-center  ">
-    <h1 class="text-light">InstaSmart</h1>
-   <mat-card class="last-content mt-5">
-     <button type="button" class="pay-now-btn">
+<div class="mt-7">
+<div *ngIf="!paymentSuccessful" class="container-fluid p-4 bg-dark h-100">
+  <div class="card border border-1 shadow rounded bg-black" style="margin:auto ;width: 500px; ">
+    <div class=" text-center text-light fs-4 fw-bold p-1 ls-3 card-header py-2 bg-primary">
+      PAYMENT
+    </div>
+
+    <div class="d-flex justify-content-around py-3">
+      <button type="button" class="btn btn-success text-light fw-bold">
         Apply Coupons
-     </button>
-     <button type="button" class="pay-now-btn">
+      </button>
+
+    </div>
+    <div class="d-flex justify-content-around">
+      <button type="button" class="btn btn-light text-dark">
         Pay with Netbanking
-     </button>
-     <!-- <button type="button" class="pay-now-btn">
-     Netbanking options
-     </button> -->
-    </mat-card>
+      </button>
+      <button type="button" class="btn btn-light text-dark">
+        Netbanking options
+      </button>
+    </div>
 
-   <mat-card class="card-details ">
-     <p>Pay using Credit or Debit card</p>
-     <br>
 
-     <mat-card class="card-number text-left">
-       <mat-label > Enter Card Number </mat-label>
-       <input matInput #card
-         type="text"
-         class="card-number-field float-right" formControlName="cardNumber" required maxlength="9" pattern="([0-9]{3})*([0-9]{3})*([0-9]{3})"
-         placeholder="###-###-###"/>
-         <div><mat-hint> Max {{card.value.length || 0}} numbers </mat-hint>
-         <mat-hint class="float-right" >{{card.value.length || 0}}/9 </mat-hint>
+    <div class="card-body rounded-bottom  text-light mt-2 ">
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" validate>
+
+        <mat-form-field appearance="outline" class="w-100  form-field">
+          <mat-label>Card Number</mat-label>
+          <input matInput #cardNumber type="number" class="w-100  float-end" formControlName="cardNumber" required
+            placeholder="###-###-###" />
+          <div>
+            <mat-hint class="float-end">{{cardNumber.value.length || 0}}/9 </mat-hint>
+          </div>
+          <!-- <input matInput formControlName="name" name="name"> -->
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100  form-field">
+          <mat-label> CVV number </mat-label>
+
+          <input matInput #cvv type="number" class="cvv-number-field float-end" formControlName="cvvNumber" required
+            placeholder="xxx" />
+          <div>
+            <mat-hint class="float-end">{{cvv.value.length || 0}}/3 </mat-hint>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 form-field " style="height: 5px;">
+          <mat-label> Card Expiry Date </mat-label>
+
+          <input matInput #expiryDate class="w-100 float-end " placeholder="MM-DD-YY" [matDatepicker]="picker"
+            required formControlName="expiryDate">
+          <span>
+            <mat-datepicker-toggle class="float-end" matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker class="float-end"></mat-datepicker>
+          </span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="mt-4 w-100  form-field">
+          <mat-label> Card Holder Name </mat-label>
+          <input matInput #cardHolderName type="text" class="card-name-field float-end" formControlName="cardHolderName"
+            required maxlength="20" placeholder="Enter your Name" />
+        </mat-form-field>
+
+        <div fxFlex="100%">
+          <button class="btn btn-success w-100" color="primary" type="submit"
+            [disabled]="!paymentForm.valid || !paymentForm.dirty">SUBMIT</button>
         </div>
-        
-     </mat-card>
-     <mat-card class="date-number text-left">
-       <mat-label > Card Expiry Date </mat-label>
-       <!-- <input  type="text" class="date-number-field float-right" 
-              placeholder="DD-MM-YY" /> -->
-          <input matInput placeholder="MM-DD-YY" [matDatepicker]="picker" required formControlName="expiryDate">
-         <div> <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </div>
 
-     </mat-card>
+      </form>
 
-     <mat-card class="cvv-number text-left">
-       <mat-label> Enter CVV number </mat-label>
-       <input matInput #cvv type="text" class="cvv-number-field float-right" formControlName="cvvNumber" required maxlength="3"
-              placeholder="xxx" />
-              <div><mat-hint> Max {{cvv.value.length || 0}} numbers  </mat-hint>
-              <mat-hint class="float-right">{{cvv.value.length || 0}}/3 </mat-hint>
-            </div>
-     </mat-card>
-     <mat-card class="nameholder-number text-left">
-       <mat-label> Enter Card Holder Name </mat-label>
-       <input matInput #input
-         type="text"
-         class="card-name-field float-right" formControlName="cardHolderName" required maxlength="20"
-         placeholder="Enter your Name"/>
-         <div><mat-hint > Max {{input.value.length || 0}} characters </mat-hint>
-         <mat-hint class="float-right">{{input.value.length || 0}}/20</mat-hint>
+    </div>
+ 
+  </div>
+</div>
+
+<div class="container-fluid pt-5 bg-secondary vh-100" *ngIf="paymentSuccessful">
+  <div class="w-75 mt-5 m-auto rounded">
+    <div class="card w-75 m-auto bg-dark rounded px-5 py-2">
+      <div class="card-body text-light text-center">
+        <div ><i style="font-size: 100px;" class="fa text-green fa-check-circle"></i></div>
+        <div class="fs-1 fw-bold text-warning ls-3 mb-2">PAID</div>
+        <div class="fs-4 mb-2 text-green ls-3">Your Order has been placed</div>
+        <div>It will be delivered in 3-5 days</div>
+        <div>
+          <button type="button" routerLink="/products"
+            class="fs-5 mt-4 mb-2 ls-2 snbtn shadow btn rounded text-light btn-green fw-bold">CONTINUE SHOPPING
+          </button>
         </div>
-     </mat-card>
-     <br>
-     <button type="submit" 
-             class="submit-now-btn">
-       submit
-     </button>
-    </mat-card>
-</mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

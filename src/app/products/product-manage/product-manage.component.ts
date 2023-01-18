@@ -147,13 +147,7 @@ export class ProductManageComponent implements OnInit, OnDestroy {
   }
   
 
-  /* onSubmit() {
-    this.productService.createProduct(this.addProduct.value)
-      .subscribe( data => {console.log(data);
-        this.router.navigate(['products']);
-      });
-  }
- */
+ 
   //method which renders the selected product on the form
   displayProduct(productParam: IProduct | null | undefined): void {
     
@@ -201,13 +195,7 @@ export class ProductManageComponent implements OnInit, OnDestroy {
         if (product.id == 0) {
 
           this.ProductStore.dispatch(ProductActions.createProduct({ product }));
-          // this.productService.createProduct(product).subscribe(
-          //   (resp)=>{
-          //     this.productService.changeSelectedProduct(resp);
-          //     console.log(resp);},
-
-          //   (err)=>this.errorMessage=err
-          // );
+       
 
         }
         else {
@@ -215,10 +203,7 @@ export class ProductManageComponent implements OnInit, OnDestroy {
           this.ProductStore.dispatch(ProductActions.updateProduct({ product }));
 
 
-          // this.productService.updateProduct(product).subscribe(
-          //  resp=>this.productService.changeSelectedProduct(resp),
-          //  err=>this.errorMessage=err      );
-
+     
         }
       }
       window.location.hash='';

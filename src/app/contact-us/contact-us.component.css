@@ -1,35 +1,24 @@
-input[type=text], select, textarea {
-    width: 100%; 
-    padding: 12px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px;
-    box-sizing: border-box; 
-    margin-top: 6px; 
-    margin-bottom: 16px; 
-    resize: vertical 
+.p{
+
+}
+.ls-4{
+    letter-spacing: 4px;
+}
+
+.btn-green{
+    background-color:rgb(19, 186, 44);
+}
+.text-green{
+    color: rgb(19, 186, 44);;
+}
+img{
+    opacity:0.9;
+    filter: brightness(50%) blur(2px);
+    
+}
+.mt-7{
+    margin-top: 64px;
   }
-  
-  input[type=submit] {
-    background-color: #04AA6D;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-  
- 
-  .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  .bgimage{
-    background-image: url("../../assets/images/vegtablefull1.jpg");
-    /* background-repeat: no-repeat;
-    background-size: cover; */
+  .text-justify{
+    text-align: justify;
   }

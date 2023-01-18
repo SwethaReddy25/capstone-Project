@@ -285,70 +285,10 @@ export class InMemoryAppDbService implements InMemoryDbService {
     ];
 
     const cart: ICart[] = [{
-
-
       "id": 0,
-      "products": [
-
-        // {
-        //   "id": 1,
-        //   "name": "Carrot",
-        //   "code": "CO11",
-        //   "price": 500,
-        //   "image": "../../assets/images/carrot.png",
-        //   "category": Category.vegetables,
-        //   "desc": "Rich source of dietary carotenoids.",
-        //   "discount": 40,
-        //   "qty": 0
-        // },
-        // {
-        //   "id": 2,
-        //   "name": "Spinach",
-        //   "code": "QW712",
-        //   "price": 600,
-        //   "image": "../../assets/images/spinach.jpg",
-        //   "category": Category.vegetables,
-        //   "desc": "Strengthens the immune System.",
-        //   "discount": 40,
-        //   "qty": 0
-        // },
-        // {
-        //   "id": 3,
-        //   "name": "Tomato",
-        //   "code": "CD12",
-        //   "price": 350,
-        //   "image": "../../assets/images/tamoto.jpg",
-        //   "category": Category.vegetables,
-        //   "desc": "Tomates are a good source of several vitamins and mincerals.",
-        //   "discount": 40,
-        //   "qty": 0
-        // },
-        // {
-        //   "id": 4,
-        //   "name": "Brinjal",
-        //   "code": "BD13",
-        //   "price": 550,
-        //   "image": "../../assets/images/bringal",
-        //   "category": Category.vegetables,
-        //   "desc": "Helps to lower the risk of many heart diseases.",
-        //   "discount": 40,
-        //   "qty": 0
-        // },
-        // {
-        //   "id": 5,
-        //   "name": "Beetroot",
-        //   "code": "BT14",
-        //   "price": 350,
-        //   "image": "../../assets/images/beetroot.jpg",
-        //   "category": Category.vegetables,
-        //   "desc": "Could help keep your blood pressure in check.",
-        //   "discount": 40,
-        //   "qty": 0
-        // },
-      ]
-      ,totalPrice:0
-    }
-  ]
+      "products": []
+      ,"totalPrice":0
+    }];
     
     return { products, cart };
   }

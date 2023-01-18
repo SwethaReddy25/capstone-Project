@@ -1,43 +1,22 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, map, Observable, tap, throwError } from "rxjs";
+import { catchError, map, Observable, tap, throwError } from "rxjs";
 import { ICart } from "../carts/cart.model";
-import { IProduct } from "../products/product.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
-    //angular DI will resolve the dependency of ProductService class on HttpClient
-    //A -- B --C
-    //ProductListComponent it has a dependency mentioned in the constructors
-    //P roductService --constructor -- it says ProductService has  a dependency of type HttpClient
 
-    private url = "api/cart";
+    //CartService --constructor -- it says CartService has  a dependency of type HttpClient
+
+    public url = "api/cart";
     cart !: ICart;
-    carts: ICart[] = [];
     constructor(private http: HttpClient) { }
 
 
-    // private selectedCartSource = new BehaviorSubject<IProduct | null>(null);
-    // selectedCartChanges$ = this.selectedCartSource.asObservable();
-  
-
-
-    addCart(newCart: ICart): Observable<ICart> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-        return this.http.post<ICart>(this.url, newCart, { headers })
-            .pipe(
-                tap(data => {
-                    console.log('in create new cart' + JSON.stringify(data));
-                    console.log(JSON.stringify(this.cart));
-                }
-                ));
-    }
-
+    // This function is used to fetch the cart details from inmemorydb by making http get request
     getCart(): Observable<ICart[]> {
-
         return this.http.get<ICart[]>(`${this.url}`).pipe(
             tap(data => {
                 console.log(data);
@@ -46,7 +25,8 @@ export class CartService {
         );
     }
 
-
+// This function is used to make any changes in the cart like adding a product ,increasing or decreasing
+// quantity ,removing a product from the cart  by making http put request
     updateCart(updatedCart: ICart): Observable<ICart> {
         console.log(updatedCart);
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -59,41 +39,16 @@ export class CartService {
             );
     }
 
-    // getCartByUsername(username: string): Observable<void> {
-    //     return this.http.get<void>(this.url).pipe(
-    //         tap((data) => { console.log(data); })
-    //     );
-    // }
-
-    //   getProducts():Observable<ICart[]>{
-
-    //     return this.http.get<IProduct[]>(this.url).pipe(
-    //         tap(data=>{console.log(data);
-    //         this.products=data;
-    //     }),
-    //         catchError(this.errorHandler)
-    //     ); 
-    //   }
-
-
+// This is used to handle the errors
     errorHandler = (err: any) => {
-
         let errorMessage: string;
-        //a client side error or network error then ErrorEvent object will be thrown
-
         if (err.error instanceof ErrorEvent) {
-
             errorMessage = `An error has occured ${err.error.message}`
         }
         else {
-
             errorMessage = `Backend error code ${err.status} ${err.body.error}`;
-
         }
-        console.log(err,errorMessage);
+        console.log(err, errorMessage);
         return throwError(errorMessage);
-
-
     }
-
 }

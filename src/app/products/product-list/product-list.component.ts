@@ -13,15 +13,13 @@ import { AuthService } from 'src/app/user/auth.service';
 import { getCart } from 'src/app/state/cart/cart.selectors';
 import { PState } from 'src/app/state/products/product.state';
 
-// import { ChartType, ChartOptions } from 'chart.js';
-// import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
-
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
+
 export class ProductListComponent implements OnInit, OnDestroy {
   isHovering: boolean = false;
   errorMessage: string = '';
@@ -39,29 +37,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   errorMessage$!: Observable<string>;
   cart!: ICart;
   cart$!: Observable<ICart[]>;
-  total!:number;
+  total!: number;
   qty!: number;
   isAdmin!: boolean | undefined;
   dataReceived = this.productService.getProducts();
   obsProducts$!: Observable<IProduct[]>;
-  // temp:string='';
-  //Pie chart
-  // public pieChartOptions: ChartOptions = {
-  //   responsive: true,
-  // };
-  // public pieChartLabels: Label[] = ['PHP', '.Net', 'Java'];
-  // public pieChartData: SingleDataSet = [50, 30, 20];
-  // public pieChartType: ChartType = 'pie';
-  // public pieChartLegend = true;
-  // public pieChartPlugins = [];
-
 
 
   constructor(private productService: ProductService, private authService: AuthService, private router: Router, private ProductStore: Store<PState>, private CartStore: Store<CState>) {
-
-    // monkeyPatchChartJsTooltip();
-    // monkeyPatchChartJsLegend();
-
   }
 
   ngOnDestroy(): void {
@@ -69,28 +52,34 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   @Output() OnProductSelection: EventEmitter<IProduct> = new EventEmitter<IProduct>();
 
+  // This lifecycle function will be called when the product list component is being rendered
   ngOnInit(): void {
-    console.log("in init1");
+    console.log("in init");
+
     this.href = this.router.url;
+
+
+    //Here we are fecthing the product data from ngrx product store
     this.ProductStore.dispatch(ProductActions.loadProducts());
     this.products$ = this.ProductStore.select(getProducts);
     this.products$.subscribe(data => {
       console.log(data); this.filteredProducts = this.products = data;
     });
 
-
+    //Here we are fecthing the cart data from ngrx cart store
+    this.CartStore.dispatch(CartActions.loadCart());
+    this.cart$ = this.CartStore.select(getCart);
+    this.cart$.subscribe(data => {
+      console.log(data); this.cart = data[0];
+    });
 
 
     this.isAdmin = this.authService.currentUser?.isAdmin;
-    // this.isAdmin = true;
-    console.log(this.isAdmin);
     this.username = this.authService.currentUser?.userName
 
-
-
-
-
   }
+
+  // This is used to filter the product list based on name
   filterData() {
     console.log(this.filterValue);
     this.filteredProducts = this.products.filter((p) => {
@@ -99,97 +88,78 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  // This function will be called when admin clicks on add new product and will redirect us to products/manageProduct
   newProduct(): void {
-    console.log('in new product');
-
-    // this.productService.changeSelectedProduct(this.productService.newProduct());
-    // console.log('back to newProduct from service ');
-
     this.ProductStore.dispatch(ProductActions.initializeCurrentProduct());
-    console.log(this.href + '/manageProduct');
-    console.log(window.location.hash);
-    // if(window.location.hash=='#main')window.location.hash='';
     this.router.navigate([this.href + '/manageProduct'], { fragment: 'main' });
   }
 
+  // This will set the product when a particular product is selected
   productSelected(product: IProduct): void {
-    //this.productService.changeSelectedProduct(product);
     this.ProductStore.dispatch(ProductActions.setCurrentProduct({ currentProductId: product.id }));
   }
 
+  //This function is used to redirect to a particular block in that same page
   navigate(section: string) {
     window.location.hash = '';
     window.location.hash = section;
   }
-  getProductById(id: number): IProduct {
-    this.productService.getProductById(id).subscribe(resp => this.prod = resp);
-    return this.prod;
-  }
 
-
-
-  // createNewCart(){
-  //   this.cart.username=this.username;
-  //   this.cart.
-  //   this.store.dispatch(CartActions.addCart());
-  // }
-
-
+  // This function will be called when we click  on add to cart.
+  // The product which is clicked will be added to cart and it will pass the updated cart to perform
+  // the updateCart Action.
   add(prod: IProduct) {
-
-    console.log("in add ");
-    this.CartStore.dispatch(CartActions.loadCart());
-    this.cart$ = this.CartStore.select(getCart);
-    this.cart$.subscribe(data => {
-      console.log(data); this.cart = data[0];
-    });
-
-    console.log(this.cart);
-    console.log(prod);
-
-    // this.cart.products.push(prod);
-
-
-    
-    // prod.qty+=1;
-
-    // this.cart={
-    //   username:'vamsi',
-    //   products:[prod],
-    //   count:0,
-    //   id
-    // }
-
-
-
-
-
-    this.CartStore.dispatch(CartActions.updateCart({  cart: {...this.cart,products:[...this.cart.products,{...prod,qty:prod.qty+1}] ,totalPrice:this.total }}));
-
-    // this.filteredProducts.forEach((p) => {
-    //   // console.log(p);
-    //   console.log(prod.id +" "+p.id);
-    //   if (p.id == prod.id) {
-    //     console.log(p);
-    //     p = { ...p, qty: p.qty + 1 };
-    //     console.log(p);
-    //   }
-    // });
-    // console.log(this.filteredProducts);
+    let new_products = [...this.cart.products, { ...prod, qty: prod.qty + 1 }];
+    this.totalPrice(new_products);
+    this.CartStore.dispatch(CartActions.updateCart({ cart: { ...this.cart, products: new_products, totalPrice: this.total } }));
   }
 
-  delete(prod: IProduct) {
-
-    console.log(prod);
+  // This is used to check whether a particular item is present in that cart
+  isItemInCart(id: number) {
+    return this.cart.products.find((p) => p.id == id);
   }
 
-  totalPrice(){
+  // This is used to get the quantity of a product in the cart
+  getItemQty(id: number) {
+    let res = this.cart.products.filter(p => p.id == id)
+    console.log(res[0].qty);
+    return res[0].qty;
+  }
+
+  // This function will be called when we click  on increment button.
+  // The product which is clicked will be added to cart with increased quantity and it will pass the 
+  //updated cart to perform the updateCart Action.
+  plus(id: number) {
+    let new_products = this.cart.products.map(p => p.id == id ? { ...p, qty: p.qty + 1 } : p);
+    this.totalPrice(new_products);
+    this.CartStore.dispatch(CartActions.updateCart({ cart: { ...this.cart, products: new_products, totalPrice: this.total } }));
+  }
+
+  // This function will be called when we click  on decrement button.
+  // The product which is clicked will be added to cart with decreased quantity and it will pass the 
+  //updated cart to perform the updateCart Action.
+  minus(id: number) {
+    let new_products = this.cart.products.map(p => p.id == id && p.qty > 1 ? { ...p, qty: p.qty - 1 } : p);
+    this.totalPrice(new_products);
+    this.CartStore.dispatch(CartActions.updateCart({ cart: { ...this.cart, products: new_products, totalPrice: this.total } }));
+  }
+
+  // This function will be called when we click  on delete button.
+  // The product which is clicked will be removed from the cart and it will pass the 
+  //updated cart to perform the updateCart Action.
+  remove(id: number) {
+    let new_products = this.cart.products.filter(p => p.id != id);
+    this.totalPrice(new_products);
+    this.CartStore.dispatch(CartActions.updateCart({ cart: { ...this.cart, products: new_products, totalPrice: this.total } }));
+
+  }
+
+  //This will calculate the total price of all the products present in the cart.
+  totalPrice(productArr: IProduct[]) {
     this.total = 0;
-    for(var i=0;i<this.products.length;i++){
-      this.total += (this.products[i].price * this.products[i].qty);
+    for (var i = 0; i < productArr.length; i++) {
+      this.total += (productArr[i].price * productArr[i].qty);
     }
-    console.log("total",this.total);
+    console.log("total", this.total);
   }
-
 }

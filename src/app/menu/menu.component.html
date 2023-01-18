@@ -1,17 +1,20 @@
-<div>
-    <mat-toolbar   class ="px-4 py-1  bg-black">
-    <span class = "gap ls-3 fs-4 cursor-pointer" routerLink="/home">InstaSmart</span>
+<div class="fixed-top">
+    <mat-toolbar class ="px-4 py-1 border-bottom bg-black">
+
+    <span class = "gap ls-3 fs-4 cursor-pointer" routerLink="/home">{{title}}</span>
     <span class = "filler"></span>
-    <span color="accent gap " class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/home" routerLinkActive="active fs-5 text-black rounded ">HOME</span>
-    <span color="accent gap" class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/products" routerLinkActive="active fs-5 text-black rounded">ITEMS</span>
-    <span  color="accent gap" class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/contact-us" routerLinkActive="active fs-5 text-black rounded">CONTACT-US</span>
-    <span  color="accent" class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/about-us" routerLinkActive="active fs-5 text-black rounded">ABOUT-US</span>
+    <span color=" " class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/home" routerLinkActive="active fs-5 text-black rounded ">HOME</span>
+    <span color="" class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/products" routerLinkActive="active fs-5 text-black rounded">ITEMS</span>
+    <span  color="" class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/contact-us" routerLinkActive="active fs-5 text-black rounded">CONTACT-US</span>
+    <span  color="" class="mx-3 px-3 py-1 fs-6 cursor-pointer" routerLink="/about-us" routerLinkActive="active fs-5 text-black rounded">ABOUT-US</span>
     <span class = "filler"></span>
-    <!-- <a class='nav-link pe-5'  *ngIf="isLoggedIn && !isAdmin" >WELCOME {{username | uppercase}}</a> -->
     <button *ngIf="!isLoggedIn" class="float-right cursor-pointer fs-5 fw-bold bg-light text-dark"   mat-raised-button routerLink="/login">LOGIN</button>
-    <div *ngIf="isLoggedIn && !isAdmin" (click)="goToCart()" class="text-dark fw-bold me-4 p-1 fs-5 bg-blue rounded-circle bg-light"><span class="fa fa-shopping-cart pe-1"></span>{{noOfItems}} </div>
-    <button (click)="logOut()" class="fs-5 bg-primary btn text-light border border-light rounded border-1 fw-bold" *ngIf="isLoggedIn" mat-raised-button>LOGOUT</button> 
+    <div *ngIf="isLoggedIn && !isAdmin && this.router.url=='/products' "  (click)="goToCart()" class="bg-light fw-bold rounded-circle me-4 p-1 fs-5  text-success  "><span class="fa fa-shopping-cart pe-1"></span>{{noOfItems}} </div>
+    <button (click)="logOut()" class="fs-5 bg-light btn text-dark border border-light rounded border-1 fw-bold" *ngIf="isLoggedIn" mat-raised-button>LOGOUT</button> 
     
  </mat-toolbar>
 </div>
 <router-outlet></router-outlet>
+
+
+

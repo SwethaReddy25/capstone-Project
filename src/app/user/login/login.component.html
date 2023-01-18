@@ -1,45 +1,30 @@
+<div class="container-fluid mt-7 bg-dark vh-100">
+    <div><img src="../../../assets/images/veg.jpg" class="w-100" height="550px"></div>
+    <div class="card shadow rounded" style="margin:auto ;margin-top: -440px;width: 500px; ">
+        <div class=" text-center text-light fs-4 fw-bold p-1 ls-4 card-header py-2 bg-primary">
+            {{pageTitle}}
+        </div>
 
-<div class="card"><div class="card-header">
-    {{pageTitle}}
-</div>
+        <div class="card-body rounded-bottom bg-dark p-4 pt-5">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-<div class="card-body">
-<form  #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-
-<div class="form-group">
-    <p>
-    <label for="userName">User Name</label>
-    <input type="text" name="userName" id="userName"
-    #userName="ngModel"
-    ngModel
-    class="form-control"
-    required
-    >
-
-
-    </p>
-
-<p>
-    <label for="password">password</label>
-    <input type="text" name="password" id="password"
-    #password="ngModel"
-    ngModel
-    class="form-control"
-    required
-    >
-
-
-    </p>
-    <a class="btn btn-light" (click)="cancel()">Cancel Navigation</a>
-
-    <button [disabled]="!loginForm.valid">Log In</button>
-</div>
-
-</form>
-
-
-</div>
-
-
-
+                <div class="form-group">
+                    <p class="pb-3">
+                        <!-- <label for="userName">User Name</label> -->
+                        <input type="text" name="userName" id="userName" class="form-control username" required
+                            placeholder="Username" formControlName="username">
+                    </p>
+                    <p>
+                        <input type="password" name="password" id="password" class="form-control password" required
+                            placeholder="Password" formControlName="password">
+                    </p>
+                    <div class="pt-3 d-flex justify-content-around">
+                        <button class="btn btn-warning shadow  w-25" (click)="cancel()">CANCEL</button>
+                        <button [disabled]="!loginForm.valid"
+                            class="shadow w-25 text-light btn btn-success">LOGIN</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

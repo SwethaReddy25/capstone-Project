@@ -5,36 +5,33 @@
     <div class="card-body w-50 m-auto border border-dark border-2 bg-dark">
 
         <form [formGroup]="addProduct" (ngSubmit)="saveProduct(product)" class="px-2">
+
             <!-- Product Name -->
             <div class="form-group mt-2 mb-4 ">
-                <!-- <label for="name" >Product Name:</label> -->
+                <label for="name" >Product Name:</label>
                 <input type="text"  formControlName="name" placeholder="Product name" (blur)="blur()" name="name"
-                    class="form-control " id="name">
+                    class="form-control name" id="name">
             </div>
 
             <!-- Product Code -->
             <div class="form-group mb-4">
-                <!-- <label for="code">Product Code:</label> -->
+                <label for="code">Product Code:</label>
                 <input type="text" formControlName="code" placeholder="Product Code" (blur)="blur()" name="code"
-                    class="form-control" id="code">
+                    class="form-control code" id="code">
             </div>
-
 
 
             <!-- Price -->
             <div class="form-group mb-4">
-                <!-- <label for="price">Price:</label> -->
+                <label for="price">Price:</label>
                 <input type="number" formControlName="price" placeholder="Product Price" (blur)="blur()" name="price"
-                    class="form-control" id="price">
+                    class="form-control price" id="price">
             </div>
 
 
             <!-- Category -->
             <div class="form-group mb-4">
-                <!-- <label for="category">
-                    Category
-                </label> -->
-                <select (blur)="blur()" name="category" class='form-control' formControlName="category" placeholder="Category">
+                <select (blur)="blur()" name="category" id="category" class='form-control category' formControlName="category" placeholder="Category">
                     <option value="" [ngValue]="null" [disabled]="true"  selected>Select Category...</option>
                     <option value="fruits">Fruits</option>
                     <option value="flowers">Flowers</option>
@@ -49,30 +46,29 @@
 
             <!-- Image -->
             <div class="form-group mb-4">
-                <!-- <label for="image">Image:</label> -->
                 <input (blur)="blur()" type="text" formControlName="image" placeholder="Product image" name="image"
-                    class="form-control" id="image">
+                    class="form-control image" id="image">
             </div>
 
 
             <!-- Product Discount -->
             <div class="form-group mb-4">
-                <!-- <label for="discount">Product Discount:</label> -->
                 <input type="number" formControlName="discount" placeholder="Product Discount" (blur)="blur()"
-                    name="discount" class="form-control" id="discount">
+                    name="discount" class="form-control discount" id="discount">
             </div>
 
 
             <!-- Product Description -->
             <div class="form-group mb-4">
-                <!-- <label for="desc">Product Description:</label> -->
                 <input type="text" formControlName="desc" placeholder="Product Description" (blur)="blur()" name="desc"
-                    class="form-control" id="desc">
+                    class="form-control desc" id="desc">
             </div>
+
             <div class="d-flex p-2 justify-content-around ">
                 <button [disabled]="!product" class="btn btn-danger" type="button"
                     (click)="deleteProduct(product)">Delete Product</button>
-                <button [disabled]='!addProduct.valid ||!addProduct.dirty' class="btn btn-success">Save Product</button>
+                <button id="save" [disabled]='!addProduct.valid ||!addProduct.dirty' class="save btn btn-success">Save Product</button>
+                
             </div>
         </form>
 

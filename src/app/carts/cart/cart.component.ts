@@ -21,67 +21,12 @@ export class CartComponent implements OnInit {
 
 
   products!: IProduct[];
-  total:number = 0;
+  totalPrice:number = 0;
   cart$!: Observable<ICart[]>;
   cart!: ICart;
-
+  noOfItems!:number;
   constructor(private cartService: CartService, private authService: AuthService, private router: Router, private CartStore: Store<CState> ) { 
-  //   this.products=[ {
-  //     "id": 1,
-  //     "name": "Carrot",
-  //     "code": "CO11",
-  //     "price": 500,
-  //     "image": "../../assets/images/carrot.png",
-  //     "category": Category.vegetables,
-  //     "desc": "Rich source of dietary carotenoids.",
-  //     "discount": 40,
-  //     "qty":2
-  //   },
-  //   {
-  //     "id": 2,
-  //     "name": "Spinach",
-  //     "code": "QW712",
-  //     "price": 600,
-  //     "image": "../../assets/images/spinach.jpg",
-  //     "category": Category.vegetables,
-  //     "desc": "Strengthens the immune System.",
-  //     "discount": 40,
-  //     "qty":3
-  //   },
-  //   {
-  //     "id": 3,
-  //     "name": "Tomato",
-  //     "code": "CD12",
-  //     "price": 350,
-  //     "image": "../../assets/images/tamoto.jpg",
-  //     "category": Category.vegetables,
-  //     "desc": "Tomates are a good source of several vitamins and mincerals.",
-  //     "discount": 40,
-  //     "qty":4
-  //   },
-  //   {
-  //     "id": 4,
-  //     "name": "Brinjal",
-  //     "code": "BD13",
-  //     "price": 550,
-  //     "image": "../../assets/images/bringal",
-  //     "category": Category.vegetables,
-  //     "desc": "Helps to lower the risk of many heart diseases.",
-  //     "discount": 40,
-  //     "qty":4
-  //   },
-  //   {
-  //     "id": 5,
-  //     "name": "Beetroot",
-  //     "code": "BT14",
-  //     "price": 350,
-  //     "image": "../../assets/images/beetroot.jpg",
-  //     "category": Category.vegetables,
-  //     "desc": "Could help keep your blood pressure in check.",
-  //     "discount": 40,
-  //     "qty":2
-  //   }
-  // ];
+
   }
 
   ngOnInit(): void{
@@ -92,9 +37,9 @@ export class CartComponent implements OnInit {
     this.cart$.subscribe(data => {
       console.log(data); this.cart = data[0];
       this.products=this.cart.products;
-      this.total=this.cart.totalPrice;
+      this.totalPrice=this.cart.totalPrice;
+      this.noOfItems=data[0]?.products?.length;
     });
-
 
 
   }
@@ -102,39 +47,56 @@ export class CartComponent implements OnInit {
   plus(id:number){
 
  
-    let new_array = this.products.map(p => p.id == id ? {...p, qty : p.qty+1} : p);
+    let new_products = this.products.map(p => p.id == id ? {...p, qty : p.qty+1} : p);
 
-    console.log(new_array);
-  
+    console.log(new_products);
     console.log(this.products);
 
-    this.CartStore.dispatch(CartActions.updateCart({  cart: {...this.cart,products:new_array }}));
+
+    this.totalPricefn(new_products);
+
+    this.CartStore.dispatch(CartActions.updateCart({  cart: {...this.cart,products:new_products ,totalPrice:this.totalPrice }}));
     
-    this.totalPrice();
+    
 
   }
   minus(id:number){
-    let new_array = this.products.map(p => p.id == id && p.qty>1 ? {...p, qty : p.qty-1} : p);
+    let new_products = this.products.map(p => p.id == id && p.qty>1 ? {...p, qty : p.qty-1} : p);
 
-    console.log(new_array);
+    console.log(new_products);
   
     console.log(this.products);
+    this.totalPricefn(new_products);
 
-    this.CartStore.dispatch(CartActions.updateCart({  cart: {...this.cart,products:new_array }}));
+
+    this.CartStore.dispatch(CartActions.updateCart({  cart: {...this.cart,products:new_products ,totalPrice:this.totalPrice}}));
     // this.totalPrice();
 
 
   } 
   remove(id:number){
 
+    let new_products = this.products.filter(p => p.id != id );
+
+    this.totalPricefn(new_products);
+
+    this.CartStore.dispatch(CartActions.updateCart({  cart: {...this.cart,products:new_products ,totalPrice:this.totalPrice}}));
+
+
+
   }
-  totalPrice(){
-    this.total = 0;
-    for(var i=0;i<this.products.length;i++){
-      this.total += (this.products[i].price * this.products[i].qty);
+  totalPricefn(productArr:IProduct[]){
+    this.totalPrice = 0;
+    for(var i=0;i<productArr.length;i++){
+      this.totalPrice += (productArr[i].price * productArr[i].qty);
     }
-    console.log("total",this.total);
+    console.log("total",this.totalPrice);
   }
   
+  isCartEmpty(){
+    // console.log("is cart empty ",this.cart?.products?.length==0);
+    return this.noOfItems;
+  }
+
 
 }

@@ -11,6 +11,8 @@ import { ProductManageComponent } from '../products/product-manage/product-manag
 import { CartEffects } from '../state/cart/cart.effects';
 import { cartReducer } from '../../app/state/cart/cart.reducer';
 
+//Here we have created a separate module for product which is having ProductListComponent and
+// ProductManageComponent
 
 
 @NgModule({

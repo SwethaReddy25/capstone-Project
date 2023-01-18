@@ -7,6 +7,9 @@ const routerOptions: ExtraOptions = {
     scrollOffset: [0, 64],
   };
   
+// This is the routing file for product module which can loaded in app routing file
+
+
 const productRoutes: Routes = [
     {  path: 'manageProduct', component: ProductManageComponent }
   ];

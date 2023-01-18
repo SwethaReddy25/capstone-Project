@@ -7,71 +7,58 @@ import { User } from "./user.model";
 })
 export class AuthService {
 
-    //get the current user --welcome username
-    //we need to whether the user has logged in or not
-    //we have to log out the user
-
-
     currentUser!: User | null | undefined;
     redirectToUrl!: string;
-    users : User[] = [
+    users: User[] = [
         {
-            id:1,
-            userName:'admin',
-            password:'admin123',
-            isAdmin:true
-            
+            id: 1,
+            userName: 'swetha',
+            password: 'swetha123',
+            isAdmin: true
+
         },
         {
-            id:2,
-            userName:'swetha',
-            password:'swetha123',
-            isAdmin:false
-            
+            id: 2,
+            userName: 'nikki',
+            password: 'nikki123',
+            isAdmin: false
+
         }
-    ]    
+    ]
 
-    constructor(private router:Router) { }
+    constructor(private router: Router) { }
 
+    // This function is used to check if any user is logged in or not by checking the sessionStorage
     isLoggedIn(): boolean {
-        console.log('in isloggedin')
-        const cu=sessionStorage.getItem("currentUser");
-        // console.log(cu);
-        if(cu!=null){
-            this.currentUser=JSON.parse(cu);
+        const cu = sessionStorage.getItem("currentUser");
+        if (cu != null) {
+            this.currentUser = JSON.parse(cu);
         }
-        console.log(this.currentUser);
         return !!this.currentUser;
     }
-    
+
+    // This login functionality will receive username and password as parameters and check whether 
+    // the details are valid or not by going thru the users list declared in this file.
     login(userName: string, password: string): void {
-
-        //service which connect to back end api to validate the user
-
-        this.users.forEach((u)=>{
-            if(userName==u.userName && password==u.password){
+        this.users.forEach((u) => {
+            if (userName == u.userName && password == u.password) {
                 this.currentUser = u;
-
                 sessionStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-                // console.log(sessionStorage.getItem("currentUser"));
             }
         });
-
-        // if(this.isAdmin())this.redirectToUrl='/products';
-        // else this.redirectToUrl='/products';
-        // console.log(this.currentUser);
-       
     }
 
+    // This logout functionality is used to do the logout operation.
     logOut(): void {
         sessionStorage.removeItem('currentUser');
         this.currentUser = null;
         this.router.navigate(['/home']);
-
     }
+
+    // This is used to check whether logged in user is admin or not
     isAdmin(): boolean {
         if (this.currentUser)
-            return this.currentUser?.isAdmin;
+            return this.currentUser.isAdmin;
         return false;
     }
 }

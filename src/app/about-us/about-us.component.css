@@ -1,16 +1,24 @@
-.bg{
-    background-image:  url("../../assets/images/vegtablefull1.jpg") ;
-    opacity: 1;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 580px;
-    filter: brightness(50%);
-   
-
+.p{
 
 }
-.bi{
-    position:absolute;
-    margin-top:-580px;
+.ls-4{
+    letter-spacing: 4px;
+}
+
+.btn-green{
+    background-color:rgb(19, 186, 44);
+}
+.text-green{
+    color: rgb(19, 186, 44);;
+}
+img{
+    opacity:0.9;
+    filter: brightness(50%) blur(2px);
     
 }
+.mt-7{
+    margin-top: 64px;
+  }
+  .text-justify{
+    text-align: justify;
+  }
