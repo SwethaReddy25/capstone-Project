@@ -26,7 +26,7 @@
 
         <mat-form-field appearance="outline" class="w-100  form-field">
           <mat-label>Card Number</mat-label>
-          <input matInput #cardNumber type="number" class="w-100  float-end" formControlName="cardNumber" required
+          <input matInput #cardNumber id="cardNumber" type="number" class="w-100  float-end" formControlName="cardNumber" required
             placeholder="###-###-###" />
           <div>
             <mat-hint class="float-end">{{cardNumber.value.length || 0}}/9 </mat-hint>
@@ -37,7 +37,7 @@
         <mat-form-field appearance="outline" class="w-100  form-field">
           <mat-label> CVV number </mat-label>
 
-          <input matInput #cvv type="number" class="cvv-number-field float-end" formControlName="cvvNumber" required
+          <input matInput #cvv type="number" id ="cvv" class="cvv-number-field float-end" formControlName="cvvNumber" required
             placeholder="xxx" />
           <div>
             <mat-hint class="float-end">{{cvv.value.length || 0}}/3 </mat-hint>
@@ -57,7 +57,7 @@
 
         <mat-form-field appearance="outline" class="mt-4 w-100  form-field">
           <mat-label> Card Holder Name </mat-label>
-          <input matInput #cardHolderName type="text" class="card-name-field float-end" formControlName="cardHolderName"
+          <input matInput #cardHolderName id="cardHolderName" type="text" class="card-name-field float-end" formControlName="cardHolderName"
             required maxlength="20" placeholder="Enter your Name" />
         </mat-form-field>
 

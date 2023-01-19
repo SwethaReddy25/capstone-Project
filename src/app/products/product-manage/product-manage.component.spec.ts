@@ -57,6 +57,52 @@ describe('ProductAddComponent', () => {
     expect(name.errors).toBeNull();
   });
 
+  // test case for desc
+
+it('should check Product desc', () => {
+  const e1 = fixture.debugElement.query(By.css('#desc'));
+  expect(e1).toBeTruthy();
+
+});
+it('should have Product descc of text', () => {
+  const e1 = fixture.debugElement.query(By.css('#desc'));
+  expect(e1.nativeElement.getAttribute('type')).toEqual('text');
+});
+
+it('should have name as Product Name', () => {
+  const e1 = fixture.debugElement.query(By.css('#desc'));
+  expect(e1.nativeElement.getAttribute('name')).toEqual('desc');
+});
+it('should check Product Name input value is correct', () => {
+  let name = component.addProduct.controls['desc'];
+  name.setValue('Good for health');
+  expect(name.errors).toBeNull();
+});
+
+// test case for code
+
+
+it('should check Product code', () => {
+  const e1 = fixture.debugElement.query(By.css('#code'));
+  expect(e1).toBeTruthy();
+
+});
+
+it('should have Product code of text', () => {
+  const e1 = fixture.debugElement.query(By.css('#code'));
+  expect(e1.nativeElement.getAttribute('type')).toEqual('text');
+});
+
+it('should have name as Product Name', () => {
+  const e1 = fixture.debugElement.query(By.css('#code'));
+  expect(e1.nativeElement.getAttribute('name')).toEqual('code');
+});
+
+it('should check Product Name input value is correct', () => {
+  let name = component.addProduct.controls['code'];
+  name.setValue('b111');
+  expect(name.errors).toBeNull();
+});
 
   /* ---  test case for Vegetable price --- */
 

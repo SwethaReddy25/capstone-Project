@@ -95,8 +95,8 @@ export class ProductService {
     console.log("in delete product");
     return this.http.delete<IProduct>(url, { headers })
       .pipe(
-        tap(data => {
-          console.log('deleted prd' + data.id);
+        tap(() => {
+          // console.log('deleted prd' + data.id);
           const foundIndex = this.products.findIndex(item => item.id === id);
         },
           catchError(this.errorHandler))

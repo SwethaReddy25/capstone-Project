@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-us',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactUsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) {}
 
   ngOnInit(): void {
   }
   onSubmit(){
+    alert("successfully submitted");
+    this.router.navigate(['/home'])
     
   }
 
